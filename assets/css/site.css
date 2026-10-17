@@ -1267,3 +1267,34 @@ html.fly-on .cv-dots{visibility:hidden}
 .pj-back{min-width:0}
 .pj-back>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media (max-width:359px){.pj-pager{gap:4px}.pj-pager .num{font-size:.8rem}}
+
+/* ---------- timeline v2: one tidy row per role ---------- */
+.gt-top{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s-2);width:100%;min-width:0}
+.gt-top b{font-weight:700;font-size:var(--t-md);min-width:0;line-height:1.3;text-wrap:balance}
+.gt-yrs{flex:none;font-size:12px;font-weight:600;line-height:1;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);padding:5px 9px;border-radius:var(--r-pill)}
+.gt-row:has(.gt-live) .gt-yrs{color:var(--brand);background:var(--brand-soft);border-color:var(--brand-tint)}
+.gt-role{display:block;font-size:var(--t-xs);color:var(--ink-3);line-height:1.45;margin-top:3px}
+@media (max-width:899px){
+  .gt{padding:var(--s-3) var(--s-3) var(--s-4)}
+  .gt-axis{padding-inline:8px;margin-bottom:var(--s-1)}
+  .gt-axis span{border:0;padding:0;font-size:11px;letter-spacing:.02em}
+  .gt-rows{gap:0}
+  .gt-rows::before{display:none}
+  .gt-row{min-height:0;padding:14px 8px;border-bottom:1px solid var(--line);border-radius:0}
+  .gt-row:last-child{border-bottom:0}
+  .gt-lbl{display:block;margin:0 0 10px;padding:0}
+  /* the years live inside the track as faint ticks, so no line ever crosses the text */
+  .gt-track{height:10px;border-radius:5px;
+    background:repeating-linear-gradient(90deg,transparent 0 calc(100% / 6 - 1px),var(--line-2) calc(100% / 6 - 1px) calc(100% / 6)),color-mix(in srgb,var(--ink) 5%,transparent)}
+  .gt-bar{border-radius:5px;box-shadow:0 4px 10px -4px rgba(74,53,212,.55)}
+  .gt-live::after{width:12px;height:12px;margin-top:-6px;border-width:2px}
+  .gt-key{margin-top:var(--s-3);padding-inline:8px;gap:var(--s-2) var(--s-4)}
+  a.gt-row:hover{background:transparent}
+  a.gt-row:active{background:var(--brand-soft)}
+}
+@media (min-width:900px){
+  .gt-axis{margin-inline-start:300px}
+  .gt-rows::before{inset-inline-start:300px}
+  .gt-row{grid-template-columns:300px 1fr}
+  .gt-lbl{padding-inline-end:var(--s-5)}
+}
