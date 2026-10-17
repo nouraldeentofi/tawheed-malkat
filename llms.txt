@@ -8,6 +8,17 @@
 - [Experience / الخبرة](https://nouraldeentofi.github.io/tawheed-malkat/experience.html)
 - [About / عنّي](https://nouraldeentofi.github.io/tawheed-malkat/about.html)
 
+## Projects
+- [Schola — Education Platform | UX/UI Case Study](https://nouraldeentofi.github.io/tawheed-malkat/project-schola.html): A UX/UI case study for an education platform.
+- [AviGate — Digital Poultry Industry Ecosystem](https://nouraldeentofi.github.io/tawheed-malkat/project-avigate.html): A digital ecosystem for the poultry industry.
+- [Luxury Real Estate Platform | UX/UI Case Study](https://nouraldeentofi.github.io/tawheed-malkat/project-luxury-real-estate.html): A UX/UI case study for a luxury real-estate platform.
+- [Geekings Brand Guidelines.](https://nouraldeentofi.github.io/tawheed-malkat/project-geekings-brand.html): Brand guidelines for Geekings.
+- [Express Syria | Shipping Platform for Parcel Delivery](https://nouraldeentofi.github.io/tawheed-malkat/project-express-syria.html): A shipping platform for parcel delivery.
+- [Software Company Landing Page | UI/UX Design](https://nouraldeentofi.github.io/tawheed-malkat/project-software-landing.html): UI/UX design for a software company landing page.
+- [Instructional Design | PILearn](https://nouraldeentofi.github.io/tawheed-malkat/project-pilearn.html): Instructional design for PILearn.
+- [Cosmetic Clinic Design](https://nouraldeentofi.github.io/tawheed-malkat/project-cosmetic-clinic.html): Design for a cosmetic clinic.
+- [HopeLink](https://nouraldeentofi.github.io/tawheed-malkat/project-hopelink.html): A project published on Behance.
+
 ## Profiles
 - [Behance](https://www.behance.net/tawheedmalqatUI-UX)
 - [LinkedIn](https://www.linkedin.com/in/tawheed-malkat/)

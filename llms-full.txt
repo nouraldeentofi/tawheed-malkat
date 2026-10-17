@@ -17,15 +17,15 @@ Contact: tawhidmalka0@gmail.com; WhatsApp/phone +963995720598; LinkedIn https://
 - Information Technology Support, Together Communication (Ramallah, Palestine, remote), 2021–2024. Provided first-level hardware, software and networking support. Installed and configured hardware and software. Kept accurate records of technical issues and their fixes.
 
 ## Projects (Behance)
-- Schola — Education Platform | UX/UI Case Study: A UX/UI case study for an education platform. https://www.behance.net/gallery/255951215/Schola-Education-Platform-UXUI-Case-Study
-- AviGate — Digital Poultry Industry Ecosystem: A digital ecosystem for the poultry industry. With the Geekings team. https://www.behance.net/gallery/245285871/AviGate-Digital-Poultry-Industry-Ecosystem
-- Luxury Real Estate Platform | UX/UI Case Study: A UX/UI case study for a luxury real-estate platform. https://www.behance.net/gallery/243748081/Luxury-Real-Estate-Platform-UXUI-Case-Study
-- Geekings Brand Guidelines.: Brand guidelines for Geekings. With the Geekings team. https://www.behance.net/gallery/241340291/Geekings-Brand-Guidelines
-- Express Syria | Shipping Platform for Parcel Delivery: A shipping platform for parcel delivery. https://www.behance.net/gallery/227857657/Express-Syria-Shipping-Platform-for-Parcel-Delivery
-- Software Company Landing Page | UI/UX Design: UI/UX design for a software company landing page. https://www.behance.net/gallery/241752063/Software-Company-Landing-Page-UIUX-Design
-- Instructional Design | PILearn: Instructional design for PILearn. https://www.behance.net/gallery/222970837/Instructional-Design-PILearn
-- Cosmetic Clinic Design: Design for a cosmetic clinic. https://www.behance.net/gallery/225193053/Cosmetic-Clinic-Design
-- HopeLink: A project published on Behance. https://www.behance.net/gallery/222646555/HopeLink
+- Schola — Education Platform | UX/UI Case Study: A UX/UI case study for an education platform. 29 screens. Page: https://nouraldeentofi.github.io/tawheed-malkat/project-schola.html · Behance: https://www.behance.net/gallery/255951215/Schola-Education-Platform-UXUI-Case-Study
+- AviGate — Digital Poultry Industry Ecosystem: A digital ecosystem for the poultry industry. With the Geekings team. 29 screens. Page: https://nouraldeentofi.github.io/tawheed-malkat/project-avigate.html · Behance: https://www.behance.net/gallery/245285871/AviGate-Digital-Poultry-Industry-Ecosystem
+- Luxury Real Estate Platform | UX/UI Case Study: A UX/UI case study for a luxury real-estate platform. 10 screens. Page: https://nouraldeentofi.github.io/tawheed-malkat/project-luxury-real-estate.html · Behance: https://www.behance.net/gallery/243748081/Luxury-Real-Estate-Platform-UXUI-Case-Study
+- Geekings Brand Guidelines.: Brand guidelines for Geekings. With the Geekings team. 46 screens. Page: https://nouraldeentofi.github.io/tawheed-malkat/project-geekings-brand.html · Behance: https://www.behance.net/gallery/241340291/Geekings-Brand-Guidelines
+- Express Syria | Shipping Platform for Parcel Delivery: A shipping platform for parcel delivery. 22 screens. Page: https://nouraldeentofi.github.io/tawheed-malkat/project-express-syria.html · Behance: https://www.behance.net/gallery/227857657/Express-Syria-Shipping-Platform-for-Parcel-Delivery
+- Software Company Landing Page | UI/UX Design: UI/UX design for a software company landing page. 5 screens. Page: https://nouraldeentofi.github.io/tawheed-malkat/project-software-landing.html · Behance: https://www.behance.net/gallery/241752063/Software-Company-Landing-Page-UIUX-Design
+- Instructional Design | PILearn: Instructional design for PILearn. 9 screens. Page: https://nouraldeentofi.github.io/tawheed-malkat/project-pilearn.html · Behance: https://www.behance.net/gallery/222970837/Instructional-Design-PILearn
+- Cosmetic Clinic Design: Design for a cosmetic clinic. 15 screens. Page: https://nouraldeentofi.github.io/tawheed-malkat/project-cosmetic-clinic.html · Behance: https://www.behance.net/gallery/225193053/Cosmetic-Clinic-Design
+- HopeLink: A project published on Behance. 9 screens. Page: https://nouraldeentofi.github.io/tawheed-malkat/project-hopelink.html · Behance: https://www.behance.net/gallery/222646555/HopeLink
 
 ## Skills
 - Strategy: Product Strategy, UX Strategy, Design Thinking, Product Discovery, Feature Definition, MVP Design, User Stories

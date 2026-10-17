@@ -639,6 +639,104 @@
     window.__tm_bd = { fit, zoomTo, openFull, closeFull, state: () => ({ z, x, y }) };
   }
 
+  /* ---------- v2: links shared before the project pages (work.html#p-slug) land on the page itself ---------- */
+  const oldLink = location.hash.match(/^#p-([\w-]+)$/);
+  if (oldLink && !$('#vw') && $(`a[href="project-${oldLink[1]}.html"]`)) location.replace(`project-${oldLink[1]}.html`);
+
+  /* ---------- v2: centred-item tracking shared by the deck, the key screens and the lightbox ---------- */
+  const nearest = (track, items) => {
+    const tr = track.getBoundingClientRect(), mid = tr.left + tr.width / 2;
+    let best = 0, bd = Infinity;
+    items.forEach((it, i) => { const r = it.getBoundingClientRect(); const d = Math.abs(r.left + r.width / 2 - mid); if (d < bd) { bd = d; best = i; } });
+    return best;
+  };
+  const centreOn = (track, item, smooth) => {
+    const tr = track.getBoundingClientRect(), r = item.getBoundingClientRect();
+    track.scrollBy({ left: r.left + r.width / 2 - (tr.left + tr.width / 2), behavior: smooth && !mqReduce.matches ? 'smooth' : 'instant' });
+  };
+  const pad2 = (n) => String(n).padStart(2, '0');
+
+  /* ---------- v2: the deck — swipe between projects, neighbours turn away ---------- */
+  $$('[data-pw]').forEach((track) => {
+    const sec = track.closest('.pw');
+    const slots = Array.from(track.children);
+    const dots = $$('.pw-dots i', sec), count = $('.pw-count', sec);
+    const real = slots.filter((s) => !s.querySelector('.pw-more')).length;
+    let cur = 0;
+    const paint = () => {
+      const tr = track.getBoundingClientRect(), mid = tr.left + tr.width / 2;
+      slots.forEach((s) => {
+        const r = s.getBoundingClientRect();
+        const d = Math.max(-1, Math.min(1, (r.left + r.width / 2 - mid) / (r.width + 16)));
+        s.style.setProperty('--d', d.toFixed(3));
+        s.style.setProperty('--a', Math.abs(d).toFixed(3));
+      });
+      cur = nearest(track, slots);
+      slots.forEach((s, i) => s.classList.toggle('is-cur', i === cur));
+      dots.forEach((d, i) => d.classList.toggle('on', i === cur));
+      if (count) count.textContent = `${pad2(Math.min(cur + 1, real))} / ${pad2(real)}`;
+    };
+    const onScroll = raf(paint);
+    track.addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll);
+    hooks.push(() => requestAnimationFrame(paint));
+    const go = (i) => centreOn(track, slots[Math.max(0, Math.min(slots.length - 1, i))], true);
+    const prev = $('.pw-prev', sec), next = $('.pw-next', sec);
+    if (prev) prev.addEventListener('click', () => go(cur - 1));
+    if (next) next.addEventListener('click', () => go(cur + 1));
+    track.addEventListener('keydown', (e) => {
+      if (e.target !== track || (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight')) return;
+      e.preventDefault();
+      const fwd = (e.key === 'ArrowLeft') === AR();
+      go(cur + (fwd ? 1 : -1));
+    });
+    track.classList.add('is-live');
+    paint();
+    window.__tm_pw = { go, cur: () => cur };
+  });
+
+  /* ---------- v2: key screens — a count that follows the swipe ---------- */
+  $$('[data-pj-hi]').forEach((track) => {
+    const items = Array.from(track.children), count = $('.pj-hi-count');
+    const paint = () => { if (count) count.textContent = `${pad2(nearest(track, items) + 1)} / ${pad2(items.length)}`; };
+    track.addEventListener('scroll', raf(paint), { passive: true });
+    paint();
+  });
+
+  /* ---------- v2: lightbox — every screen of a project at full size ---------- */
+  const lb = $('#lb');
+  if (lb) {
+    const track = $('#lbTrack'), items = Array.from(track.children), cnt = $('#lbCount');
+    let idx = 0, back = null, opening = false;
+    const load = (i) => { const img = items[i] && $('img[data-src]', items[i]); if (img) { img.src = img.dataset.src; img.removeAttribute('data-src'); } };
+    const paint = () => { cnt.textContent = `${idx + 1} / ${items.length}`; [idx - 1, idx, idx + 1, idx + 2].forEach(load); };
+    const go = (i, smooth = true) => { idx = Math.max(0, Math.min(items.length - 1, i)); paint(); centreOn(track, items[idx], smooth); };
+    const open = (i) => {
+      back = document.activeElement; lb.hidden = false; lock(); overlayOpen = true; dockHide('lb', true); opening = true;
+      requestAnimationFrame(() => { go(i, false); lb.classList.add('open'); $('#lbClose').focus({ preventScroll: true }); setTimeout(() => { opening = false; }, 120); });
+    };
+    const close = () => {
+      lb.classList.remove('open');
+      setTimeout(() => { lb.hidden = true; unlock(); overlayOpen = false; dockHide('lb', false); if (back) back.focus({ preventScroll: true }); }, 300);
+    };
+    $$('[data-lb]').forEach((a) => a.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      e.preventDefault(); open(+a.dataset.lb);
+    }));
+    track.addEventListener('scroll', raf(() => { if (opening) return; const i = nearest(track, items); if (i !== idx) { idx = i; paint(); } }), { passive: true });
+    $('#lbClose').addEventListener('click', close);
+    $('#lbPrev').addEventListener('click', () => go(idx - 1));
+    $('#lbNext').addEventListener('click', () => go(idx + 1));
+    lb.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') go(AR() ? idx + 1 : idx - 1);
+      if (e.key === 'ArrowRight') go(AR() ? idx - 1 : idx + 1);
+      if (e.key === 'Tab') { const f = $$('button', lb).filter((x) => x.offsetParent !== null); const i = f.indexOf(document.activeElement); if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); } else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); } }
+    });
+    hooks.push(() => { if (!lb.hidden) go(idx, false); });
+    window.__tm_lb = { open, close, go, idx: () => idx };
+  }
+
   /* expose for tests */
   window.__tm = { applyLang, applyTheme, openSheet, closeSheet };
 })();
