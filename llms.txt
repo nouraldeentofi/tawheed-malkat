@@ -1,0 +1,16 @@
+# Tawheed Malkat (توحيد ملقط)
+
+> Senior product designer (UI/UX) and informatics engineer from Damascus, Syria. 4+ years designing web and mobile products with teams in Syria, Saudi Arabia, Turkey and Germany. The site is in Arabic and English.
+
+## Pages
+- [Home / الرئيسية](https://nouraldeentofi.github.io/tawheed-malkat/)
+- [Work / المشاريع](https://nouraldeentofi.github.io/tawheed-malkat/work.html)
+- [Experience / الخبرة](https://nouraldeentofi.github.io/tawheed-malkat/experience.html)
+- [About / عنّي](https://nouraldeentofi.github.io/tawheed-malkat/about.html)
+
+## Profiles
+- [Behance](https://www.behance.net/tawheedmalqatUI-UX)
+- [LinkedIn](https://www.linkedin.com/in/tawheed-malkat/)
+
+## Full facts
+- [llms-full.txt](https://nouraldeentofi.github.io/tawheed-malkat/llms-full.txt)
