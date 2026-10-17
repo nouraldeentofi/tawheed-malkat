@@ -751,10 +751,10 @@
     const aim = () => {
       const t = $(done ? '.hx-vis' : AT[stage], fr);
       if (!t || !t.offsetParent) return;
-      // when the build is finished her cursor rests on the screen, out of the text's way
-      const b = box(t), fx = done ? (AR() ? 0.82 : 0.18) : (AR() ? 0.22 : 0.78);
+      // when the build is finished her cursor rests on the window's bar, beside its dots, so her work is seen whole
+      const b = box(t), fx = done ? (AR() ? 0.78 : 0.22) : (AR() ? 0.22 : 0.78);
       cur.style.setProperty('--cx', `${(b.x + b.w * fx).toFixed(0)}px`);
-      cur.style.setProperty('--cy', `${(b.y + b.h * (done ? 0.3 : stage === 1 ? 0.5 : 0.82)).toFixed(0)}px`);
+      cur.style.setProperty('--cy', `${(done ? b.y - 10 : b.y + b.h * (stage === 1 ? 0.5 : 0.82)).toFixed(0)}px`);
     };
     // the prototype connection: from the main button to the screen
     const wire = () => {

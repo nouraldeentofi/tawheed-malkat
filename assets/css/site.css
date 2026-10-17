@@ -1365,7 +1365,7 @@ html[lang="en"] .hx-name{letter-spacing:-.035em}
 .hx-stats{display:flex;flex-wrap:wrap;gap:var(--s-2);margin-top:var(--s-3)}
 .hx-stats li{display:flex;align-items:center;gap:8px;padding:8px 12px 8px 10px;border-radius:var(--r-md);background:var(--glass-soft);border:1px solid var(--glass-edge);box-shadow:var(--shadow-1)}
 .hx-stats .ic{width:20px;height:20px;color:var(--brand);transition:color .6s}
-.hx-stats span{display:grid;line-height:1.15}
+.hx-stats li>span{display:grid;line-height:1.15}
 .hx-stats b{font:700 1.15rem/1.1 var(--f-head)}
 .hx-stats small{font-size:12px;color:var(--ink-3)}
 @media (max-width:420px){.hx-stats{display:grid;grid-template-columns:repeat(3,1fr);width:100%}.hx-stats li{flex-direction:column;align-items:flex-start;gap:4px;padding:10px}.hx-stats small{font-size:11px}}
@@ -1381,9 +1381,10 @@ html[lang="en"] .hx-name{letter-spacing:-.035em}
 .hx-vis-bar{display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line)}
 .hx-vis-bar i{width:9px;height:9px;border-radius:50%;background:var(--line-2)}
 .hx-vis-bar i:nth-child(1){background:#FF6159}.hx-vis-bar i:nth-child(2){background:#FFBD2E}.hx-vis-bar i:nth-child(3){background:#28C941}
-.hx-vis-in{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;border-radius:0 0 var(--r-lg) var(--r-lg);background:var(--surface-2)}
-.hx-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transform:scale(1.04);transition:opacity .9s var(--ease),transform 6s linear}
-.hx-frame.s4 .hx-shot.on{opacity:1;transform:scale(1)}
+.hx-vis-in{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;border-radius:0 0 var(--r-lg) var(--r-lg);background:var(--surface-2)}
+/* every screen is shown whole: the frame has the screens' own 16:9 shape, and nothing zooms past its edges */
+.hx-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .9s var(--ease)}
+.hx-frame.s4 .hx-shot.on{opacity:1}
 .hx-wire{position:absolute;inset:0;display:grid;grid-template-columns:28% 1fr;grid-template-rows:14% 1fr 1fr;gap:6%;padding:7%;opacity:0;transition:opacity .5s}
 .hx-wire i{border-radius:10px;background:var(--wire);border:1px dashed var(--wire-2)}
 .hx-wire i:nth-child(1){grid-column:1/-1}.hx-wire i:nth-child(2){grid-row:2/4}
@@ -1396,10 +1397,11 @@ html[lang="en"] .hx-name{letter-spacing:-.035em}
   opacity:0;scale:.6;transition:opacity .4s var(--ease),scale .5s var(--spring)}
 .hx-note.is-drag{cursor:grabbing;transition:none;box-shadow:0 18px 30px -12px rgba(40,30,10,.55)}
 .hx-frame.s1 .hx-note{opacity:1;scale:1}
-.hx-note-1{top:-8%;inset-inline-end:-3%;--r:4deg}
-.hx-note-2{bottom:-10%;inset-inline-start:-4%;--r:-5deg;transition-delay:.15s}
-.hx-note-3{top:42%;inset-inline-end:-6%;--r:3deg;transition-delay:.3s}
-@media (max-width:899px){.hx-note{max-width:120px;font-size:12px;padding:8px 10px}.hx-note-1{top:-12%;inset-inline-end:2%}.hx-note-2{bottom:-12%;inset-inline-start:2%}.hx-note-3{display:none}}
+/* they stick to the frame's edges, never onto the screen itself: above the browser bar or below the screen */
+.hx-note-1{bottom:calc(100% - 22px);inset-inline-end:-3%;--r:4deg}
+.hx-note-2{top:calc(100% + 4px);inset-inline-start:-4%;--r:-5deg;transition-delay:.15s}
+.hx-note-3{top:calc(100% + 4px);inset-inline-end:6%;--r:3deg;transition-delay:.3s}
+@media (max-width:899px){.hx-note{max-width:44%;font-size:12px;padding:8px 10px}.hx-note-1{inset-inline-end:2%}.hx-note-2{top:auto;bottom:calc(100% - 22px);inset-inline-start:3%}.hx-note-3{display:none}}
 
 /* colour stage: the swatch */
 .hx-swatch{position:absolute;z-index:4;bottom:12%;inset-inline-start:-6%;display:flex;align-items:center;gap:5px;padding:7px 10px;border-radius:var(--r-pill);background:var(--glass-strong);border:1px solid var(--glass-edge);box-shadow:var(--shadow-2);
@@ -1443,7 +1445,7 @@ html[lang="en"] .hx-name{letter-spacing:-.035em}
 @media (hover:hover){.hx-tools button:hover{background:var(--brand-soft);color:var(--ink)}.hx-tools button.is-on:hover{background:var(--brand);color:var(--brand-ink)}}
 @media (max-width:559px){
   .hx-tools{width:calc(100% - 8px);justify-content:space-between;gap:0;padding:5px}
-  .hx-tools button{flex-direction:column;gap:3px;min-height:52px;min-width:48px;padding:6px 6px;font-size:10.5px}
+  .hx-tools button{flex:0 0 auto;flex-direction:column;gap:3px;min-height:52px;min-width:48px;padding:6px 6px;font-size:10.5px}
   .hx-tools button .ic{width:18px;height:18px}
   .hx-tools .hx-replay{border-radius:var(--r-lg);border-inline-start:0}
 }
