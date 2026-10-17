@@ -466,7 +466,7 @@
     const layer = document.createElement('div');
     layer.className = 'ins-layer'; layer.setAttribute('aria-hidden', 'true');
     document.body.appendChild(layer);
-    const fam = (f) => { const n = f.split(',')[0].replace(/["']/g, '').trim(); return n === 'Readex' ? 'Readex Pro' : n === 'Reem' ? 'Reem Kufi' : n; };
+    const fam = (f) => { const n = f.split(',')[0].replace(/["']/g, '').trim(); return n === 'Plex' ? 'IBM Plex Sans Arabic' : n === 'Alex' ? 'Alexandria' : n; };
     const docPos = (el) => { let x = 0, y = 0, n = el; while (n) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; } return { x, y }; };
     const hex = (c) => { const m = c.match(/\d+(\.\d+)?/g); if (!m) return c; return '#' + m.slice(0, 3).map((v) => (+v).toString(16).padStart(2, '0')).join('').toUpperCase(); };
     const paintIns = () => {
@@ -735,6 +735,88 @@
     });
     hooks.push(() => { if (!lb.hidden) go(idx, false); });
     window.__tm_lb = { open, close, go, idx: () => idx };
+  }
+
+  /* ---------- the opening: the hero designs itself, one skill at a time ---------- */
+  const hx = $('[data-hx]');
+  if (hx) {
+    const fr = $('.hx-frame', hx), cur = $('.hx-cur', hx), dim = $('.hx-dim', hx), proto = $('.hx-proto', hx);
+    const tools = $$('[data-hx-go]', hx), replay = $('.hx-replay', hx);
+    const noodle = $('.hx-noodle', hx), npath = $('path', noodle), ends = $$('circle', noodle);
+    const shots = $$('.hx-shot', hx);
+    let stage = 5, done = true, timers = [];
+    const box = (el) => { const a = el.getBoundingClientRect(), f = fr.getBoundingClientRect(); return { x: a.left - f.left, y: a.top - f.top, w: a.width, h: a.height }; };
+    // where her cursor works at each stage
+    const AT = { 0: '.hx-name-wrap', 1: '.hx-note-1', 2: '.hx-lead', 3: '.hx-name-wrap', 4: '.hx-cta .btn-p', 5: '.hx-vis' };
+    const aim = () => {
+      const t = $(done ? '.hx-vis' : AT[stage], fr);
+      if (!t || !t.offsetParent) return;
+      // when the build is finished her cursor rests on the screen, out of the text's way
+      const b = box(t), fx = done ? (AR() ? 0.82 : 0.18) : (AR() ? 0.22 : 0.78);
+      cur.style.setProperty('--cx', `${(b.x + b.w * fx).toFixed(0)}px`);
+      cur.style.setProperty('--cy', `${(b.y + b.h * (done ? 0.3 : stage === 1 ? 0.5 : 0.82)).toFixed(0)}px`);
+    };
+    // the prototype connection: from the main button to the screen
+    const wire = () => {
+      const btn = $('.hx-cta .btn-p', fr), vis = $('.hx-vis-in', fr);
+      if (!btn || !vis) return;
+      const a = box(btn), v = box(vis), wide = fr.clientWidth >= 820;
+      let x1, y1, x2, y2, d;
+      if (wide) {
+        x1 = AR() ? a.x : a.x + a.w; y1 = a.y + a.h / 2;
+        x2 = AR() ? v.x + v.w : v.x; y2 = v.y + v.h * 0.62;
+        const k = (x2 - x1) * 0.55;
+        d = `M${x1} ${y1} C ${x1 + k} ${y1}, ${x2 - k} ${y2}, ${x2} ${y2}`;
+      } else {
+        x1 = a.x + a.w / 2; y1 = a.y + a.h;
+        x2 = v.x + v.w / 2; y2 = v.y;
+        d = `M${x1} ${y1} C ${x1} ${y1 + 60}, ${x2} ${y2 - 60}, ${x2} ${y2}`;
+      }
+      npath.setAttribute('d', d);
+      ends[0].setAttribute('cx', x1); ends[0].setAttribute('cy', y1); ends[1].setAttribute('cx', x2); ends[1].setAttribute('cy', y2);
+      noodle.style.setProperty('--len', Math.ceil(npath.getTotalLength() + 2));
+      // the label sits by the screen end of the wire, clear of the buttons
+      if (proto) { const pw = proto.offsetWidth || 150; proto.style.setProperty('--px', `${(wide ? (AR() ? x2 - pw - 12 : x2 + 12) : x2 - pw / 2).toFixed(0)}px`); proto.style.setProperty('--py', `${(wide ? y2 - 44 : y2 - 46).toFixed(0)}px`); }
+    };
+    const paint = () => { aim(); wire(); if (dim) dim.textContent = `${Math.round(fr.offsetWidth)} × ${Math.round(fr.offsetHeight)}`; };
+    const set = (n, fin) => {
+      stage = n; done = !!fin;
+      for (let k = 1; k <= 5; k++) fr.classList.toggle('s' + k, k <= n);
+      fr.classList.toggle('done', done);
+      tools.forEach((b, i) => { b.setAttribute('aria-pressed', String(i + 1 <= n)); b.classList.toggle('is-on', i + 1 === n && !done); });
+      paint();
+    };
+    const stop = () => { timers.forEach(clearTimeout); timers = []; };
+    const play = () => {
+      stop(); set(0);
+      [[1, 200], [2, 1150], [3, 2150], [4, 3100], [5, 3950]].forEach(([n, ms]) => timers.push(setTimeout(() => set(n), ms)));
+      timers.push(setTimeout(() => set(5, true), 5300));
+    };
+    tools.forEach((b) => b.addEventListener('click', () => { stop(); const n = +b.dataset.hxGo; set(n, false); }));
+    if (replay) replay.addEventListener('click', play);
+    // her screens take turns once the colour is in
+    let shot = 0, seen = true;
+    new IntersectionObserver((es) => { seen = es[0].isIntersecting; }).observe(fr);
+    setInterval(() => {
+      if (!seen || document.hidden || stage < 4 || mqReduce.matches || shots.length < 2) return;
+      shots[shot].classList.remove('on'); shot = (shot + 1) % shots.length; shots[shot].classList.add('on');
+    }, 3600);
+    // sticky notes can be moved, like on any canvas
+    $$('.hx-note', hx).forEach((n) => {
+      let sx = 0, sy = 0, ox = 0, oy = 0, id = null;
+      n.addEventListener('pointerdown', (e) => { id = e.pointerId; n.setPointerCapture(id); n.classList.add('is-drag'); sx = e.clientX; sy = e.clientY; ox = parseFloat(n.style.getPropertyValue('--dx')) || 0; oy = parseFloat(n.style.getPropertyValue('--dy')) || 0; });
+      n.addEventListener('pointermove', (e) => { if (e.pointerId !== id) return; n.style.setProperty('--dx', `${ox + e.clientX - sx}px`); n.style.setProperty('--dy', `${oy + e.clientY - sy}px`); });
+      const end = () => { id = null; n.classList.remove('is-drag'); };
+      n.addEventListener('pointerup', end); n.addEventListener('pointercancel', end);
+    });
+    addEventListener('resize', raf(paint));
+    hooks.push(() => requestAnimationFrame(paint));
+    if (window.ResizeObserver) new ResizeObserver(raf(paint)).observe(fr);
+    const first = root.classList.contains('intro') && !mqReduce.matches;
+    fr.classList.add('hx-live');
+    if (first) { try { sessionStorage.setItem('tm-intro', '1'); } catch (e) { /* ignore */ } set(0); }
+    (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => { if (first) play(); else set(5, true); });
+    window.__tm_hx = { play, set, stage: () => stage, done: () => done };
   }
 
   /* expose for tests */
